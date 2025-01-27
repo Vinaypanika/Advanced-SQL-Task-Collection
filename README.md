@@ -2,8 +2,8 @@
 
 This repository contains a collection of SQL queries that I have practiced to enhance my skills in data analysis and database management. Each query is designed to address specific business analysis tasks, such as calculating total sales, ranking orders, finding sales deviations, and calculating moving averages across product sales. The tasks leverage advanced SQL features such as window functions, aggregation, ranking, and partitioning to extract meaningful insights from large datasets. Below are the questions I worked on:
 
-Find the sales across all products.
-Rank each order based on their sales from highest to lowest.
+## 1.Find the sales across all products.
+## 2.Rank each order based on their sales from highest to lowest.
 Find the total number of orders for each customer.
 Find the percentage contribution of each product's sales to the total sales.
 Find the average sales across all orders and for each product.
