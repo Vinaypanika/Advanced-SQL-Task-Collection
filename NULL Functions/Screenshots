@@ -1,1 +1,128 @@
+# SQL Query Practice: Customer and Sales Data Analysis
 
+This repository contains SQL queries that address various real-world business scenarios. The goal of this project was to practice essential SQL functions and techniques, including data manipulation, filtering, joining, and sorting, to gain actionable insights from a dataset.
+
+## Project Overview
+
+The dataset includes two tables:
+- **`sales.Customers`**: Contains customer information such as `CustomerID`, `FirstName`, `LastName`, and `Score`.
+- **`sales.Orders`**: Contains order details such as `OrderID`, `OrderDate`, `Quantity`, and `Sales`.
+
+Below is a summary of the tasks and corresponding SQL queries:
+
+### 1. Combine First and Last Name and Update Customer Score
+**Objective:** Display the full name of customers by merging their first and last names into a single field and add 10 bonus points to each customer's score.
+
+```sql
+SELECT CustomerID, FirstName, LastName, Score,
+       CONCAT(FirstName, ' ', LastName) AS FullName,
+       10 + COALESCE(Score, 0) AS Final_Score
+FROM sales.Customers;
+```
+**Learnings:**
+- Use of `CONCAT` to merge multiple fields.
+- Handling null values with the `COALESCE` function.
+- Performing basic arithmetic operations in SQL.
+
+---
+
+### 2. Sort Customers by Score (Nulls Last)
+**Objective:** Sort the customers by their score in ascending order with `NULL` values appearing last.
+
+```sql
+SELECT CustomerID, FirstName, Score
+FROM sales.Customers
+ORDER BY CASE WHEN Score IS NULL THEN 1 ELSE 0 END, Score;
+```
+**Learnings:**
+- Usage of `CASE` statements for custom sorting logic.
+- Ensuring null values are handled appropriately in ordered lists.
+
+---
+
+### 3. Calculate Sales Price per Order
+**Objective:** Find the sales price for each order by dividing the `Sales` value by the `Quantity`.
+
+```sql
+SELECT OrderID, OrderDate, Quantity, Sales,
+       Sales / NULLIF(Quantity, 0) AS Sales_Price
+FROM sales.Orders;
+```
+**Learnings:**
+- Preventing division by zero using the `NULLIF` function.
+- Performing calculations within SQL queries.
+
+---
+
+### 4. Identify Customers Without a Score
+**Objective:** Retrieve all customer records where the `Score` is null.
+
+```sql
+SELECT *
+FROM sales.Customers
+WHERE Score IS NULL;
+```
+**Learnings:**
+- Filtering records using the `IS NULL` condition.
+
+---
+
+### 5. Identify Customers with a Score
+**Objective:** Retrieve all customer records where the `Score` is not null.
+
+```sql
+SELECT *
+FROM sales.Customers
+WHERE Score IS NOT NULL;
+```
+**Learnings:**
+- Filtering records using the `IS NOT NULL` condition.
+
+---
+
+### 6. Find Customers Without Orders
+**Objective:** List all details of customers who have not placed any orders.
+
+```sql
+SELECT c.CustomerID, c.FirstName, c.LastName, o.OrderID
+FROM sales.Customers AS c
+LEFT JOIN sales.Orders AS o
+ON c.CustomerID = o.CustomerID
+WHERE o.CustomerID IS NULL;
+```
+**Learnings:**
+- Using `LEFT JOIN` to include all records from one table and only matching records from another.
+- Filtering rows with unmatched data using `WHERE`.
+
+---
+
+## Key Functions and Concepts Practiced
+1. **String Functions:** 
+   - `CONCAT`: Merging strings to form a single field.
+
+2. **Null Handling:** 
+   - `COALESCE`: Replacing null values with a default value.
+   - `IS NULL` and `IS NOT NULL`: Filtering null and non-null records.
+
+3. **Sorting Data:**
+   - `ORDER BY`: Sorting records based on custom logic.
+   - `CASE` Statements: Handling conditional logic during sorting.
+
+4. **Mathematical Operations:**
+   - Arithmetic calculations and division.
+   - `NULLIF`: Avoiding division by zero errors.
+
+5. **Joins:**
+   - `LEFT JOIN`: Combining data from multiple tables and retaining unmatched rows.
+
+---
+
+## What I Learned
+- **Practical Application of SQL Functions:** Gained hands-on experience with SQL functions and their applications in real-world scenarios.
+- **Data Analysis and Manipulation:** Learned how to extract meaningful insights and handle edge cases such as null values and zero quantities.
+- **Error Prevention:** Used functions like `COALESCE` and `NULLIF` to ensure robust query performance.
+- **Relational Database Operations:** Leveraged joins to analyze relationships between different tables.
+
+---
+
+Feel free to explore and suggest improvements or optimizations for these queries!
